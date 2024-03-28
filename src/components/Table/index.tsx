@@ -1,5 +1,4 @@
 import {
-  TablePagination,
   Table,
   TableBody,
   TableCell,
@@ -7,63 +6,98 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Box,
+  Input,
+  IconButton,
+  CircularProgress,
 } from "@mui/material";
 import SortButton from "../SortButton";
+import { useEffect, useState } from "react";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import useTags from "../../api/useTags";
+import type { Tag } from "../../api/useTags";
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
-export default function BasicTable() {
+const TableComp = ({ rows }: { rows: Tag[] | null }) => {
   return (
-    <TableContainer component={Paper}>
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <SortButton />
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={1}
-          page={1}
-          onPageChange={() => null}
-          onRowsPerPageChange={() => null}
-        />
-      </div>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Tags</TableCell>
-            <TableCell>Posts</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Tags</TableCell>
+          <TableCell>Posts</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {rows &&
+          rows?.map((row: any) => (
+            <TableRow key={row.name}>
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell>{row.calories}</TableCell>
+              <TableCell>{row.count}</TableCell>
             </TableRow>
           ))}
-        </TableBody>
-      </Table>
+      </TableBody>
+    </Table>
+  );
+};
+
+export default function TagsTableContainer() {
+  const [pageCount, setPageCount] = useState(1);
+  const [perPage, setPerPage] = useState(25);
+  const {
+    tags: resTags,
+    isLoading,
+    error,
+    hasMore,
+  } = useTags({
+    page: pageCount.toString(),
+    pageSize: perPage.toString(),
+  });
+  const [tags, setTags] = useState(resTags);
+
+  useEffect(() => {
+    setTags(resTags);
+  }, [resTags]);
+
+  if (error)
+    return <div>There was an error while fetching data: {error.message}</div>;
+
+  return (
+    <TableContainer component={Paper}>
+      <Box display={"flex"} flexDirection={"row"}>
+        <SortButton />
+        <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
+          <div>Amount of rows</div>
+          <Input
+            type="number"
+            value={perPage}
+            //! check if not out of bounds or set max and min
+            onChange={(e) => setPerPage(Number(e.target.value))}
+          />
+          {/* //! Put to end */}
+          <Box>
+            <IconButton
+              disabled={isLoading || pageCount === 1}
+              onClick={() =>
+                setPageCount((prevState) => (prevState > 1 ? prevState - 1 : 1))
+              }
+              children={<ArrowBackIosNewIcon />}
+            />
+            Page: {pageCount}
+            <IconButton
+              disabled={isLoading || !hasMore}
+              onClick={() =>
+                setPageCount((prevState) =>
+                  hasMore ? prevState + 1 : prevState
+                )
+              }
+              children={<ArrowForwardIosIcon />}
+            />
+          </Box>
+        </Box>
+      </Box>
+      {isLoading ? <CircularProgress /> : <TableComp rows={tags} />}
     </TableContainer>
   );
 }

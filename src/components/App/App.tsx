@@ -1,14 +1,19 @@
-import React from "react";
 import "./App.css";
-import BasicTable from "../Table";
+import TagsTableContainer from "../Table";
+import { Box } from "@mui/material";
 
 function App() {
   return (
-    <div className="App">
-      <div>
-        <BasicTable />
-      </div>
-    </div>
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      justifyContent={"center"}
+      padding={"5em"}
+      paddingTop={"3em"}
+    >
+      <h1>StackExchange API</h1>
+      <TagsTableContainer />
+    </Box>
   );
 }
 
