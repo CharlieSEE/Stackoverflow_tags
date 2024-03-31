@@ -1,6 +1,6 @@
-- [ ] sorting button and func
+- [x] sorting button and func
 - [x] fetching
-- [ ] table
+- [x] table
 - [x] pagination
 - [x] loading, error states
 - [ ] storybook

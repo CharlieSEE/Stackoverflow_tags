@@ -1,5 +1,4 @@
-import "./App.css";
-import TagsTableContainer from "../Table";
+import Table from "../Table";
 import { Box } from "@mui/material";
 
 function App() {
@@ -13,7 +12,7 @@ function App() {
       height={"85vh"}
     >
       <h1>StackExchange API</h1>
-      <TagsTableContainer />
+      <Table />
     </Box>
   );
 }

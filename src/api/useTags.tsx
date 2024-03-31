@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type TagResponseItem = {
   has_synonyms: boolean;
@@ -321,7 +321,6 @@ const useTags = ({
   const [error, setError] = useState<useTagsResult["error"]>(null);
   const [hasMore, setHasMore] = useState<useTagsResult["hasMore"]>(false);
 
-  //! Maybe use callback
   const fetchTags = async () => {
     setIsLoading(true);
 

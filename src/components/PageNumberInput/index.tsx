@@ -1,11 +1,11 @@
 import { Input } from "@mui/material";
 import { useEffect, useState } from "react";
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, SetStateAction, Dispatch } from "react";
 
 type PageNumberInputProps = {
   perPage: number;
   disabled: boolean;
-  setPerPage: any;
+  setPerPage: Dispatch<SetStateAction<number>>;
 };
 
 const handleNumberInputChange = (

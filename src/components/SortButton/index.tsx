@@ -16,9 +16,9 @@ const SortButton = ({
   return (
     <>
       <FormControl disabled={disabled} sx={{ width: "15vw" }}>
-        <InputLabel id="demo-simple-select-label">Sort</InputLabel>
+        <InputLabel id="sort-button-label">Sort</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
+          labelId="sort-button-label"
           label="Sort"
           value={selectedValue}
           onChange={(e) => setSelectedValue(e.target.value as SortingValues)}
