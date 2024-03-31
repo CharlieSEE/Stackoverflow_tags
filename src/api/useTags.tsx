@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type TagResponseItem = {
   has_synonyms: boolean;
@@ -36,8 +36,6 @@ const mapTagResponse = (tag: TagResponseItem): Tag => ({
   name: tag.name,
   count: tag.count,
 });
-
-const processTagResponse = () => {};
 
 const fakeRes = {
   items: [
@@ -321,31 +319,33 @@ const useTags = ({
   const [tags, setTags] = useState<useTagsResult["tags"]>(null);
   const [isLoading, setIsLoading] = useState<useTagsResult["isLoading"]>(false);
   const [error, setError] = useState<useTagsResult["error"]>(null);
+  const [hasMore, setHasMore] = useState<useTagsResult["hasMore"]>(false);
 
   //! Maybe use callback
   const fetchTags = async () => {
     setIsLoading(true);
 
     try {
-      // const res: Promise<TagResponse> = await (
-      //   await fetch( "https://api.stackexchange.com/2.3/tags?" +
-      // new URLSearchParams({
-      //   page,
-      //   pagesize: pageSize,
-      //   site: "stackoverflow",
-      // }))
+      // const res: TagResponse = await (
+      //   await fetch(
+      //     "https://api.stackexchange.com/2.3/tags?" +
+      //       new URLSearchParams({
+      //         page,
+      //         pagesize: pageSize,
+      //         site: "stackoverflow",
+      //       })
+      //   )
       // ).json();
 
-      // const res: Promise<TagResponse> = await (
-      //   await fetch("https://catfact.ninja/fact")
-      // ).json();
-
-      // //@ts-expect-error
-      // setTags(res);
+      // setHasMore(res.has_more);
+      // setTags(res.items.map(mapTagResponse));
 
       //! FAKE
 
+      await fetch("https://bible-api.com/john 3:16");
+
       setTags(fakeRes.items.map(mapTagResponse));
+      setHasMore(true);
     } catch (error: any) {
       setError(error);
     }
@@ -356,7 +356,7 @@ const useTags = ({
     fetchTags();
   }, [page, pageSize]);
 
-  return { tags, isLoading, error, hasMore: fakeRes.has_more };
+  return { tags, isLoading, error, hasMore };
 };
 
 export default useTags;

@@ -10,6 +10,7 @@ function App() {
       justifyContent={"center"}
       padding={"5em"}
       paddingTop={"3em"}
+      height={"85vh"}
     >
       <h1>StackExchange API</h1>
       <TagsTableContainer />
