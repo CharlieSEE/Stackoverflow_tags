@@ -1,11 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import SortButton from ".";
-import { any } from "prop-types";
 import { SortingValues } from "../Table";
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Example/SortButton",
+  title: "SortButton",
   component: SortButton,
   parameters: {
     layout: "centered",
@@ -16,11 +14,15 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary: Story = {
+export const Normal: Story = {
   args: {
     selectedValue: SortingValues.DESCENDING,
     setSelectedValue: () => null,
     disabled: false,
+  },
+  argTypes: {
+    selectedValue: {
+      options: [SortingValues.DESCENDING, SortingValues.ASCENDING],
+    },
   },
 };

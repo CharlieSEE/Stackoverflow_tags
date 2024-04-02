@@ -5,9 +5,7 @@ import Table from ".";
 const meta = {
   title: "TagTable",
   component: Table,
-  parameters: {
-    layout: "centered",
-  },
+
   tags: ["autodocs"],
 } satisfies Meta<typeof Table>;
 

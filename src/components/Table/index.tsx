@@ -10,7 +10,7 @@ export enum SortingValues {
   ASCENDING = "Ascending",
 }
 
-export default function Table() {
+const Table = () => {
   const [pageCount, setPageCount] = useState(1);
   const [perPage, setPerPage] = useState(25);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
@@ -59,4 +59,6 @@ export default function Table() {
       {isLoading ? <CircularProgress /> : <TableContent rows={rows} />}
     </TableContainer>
   );
-}
+};
+
+export default Table;

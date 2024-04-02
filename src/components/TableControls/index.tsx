@@ -1,4 +1,4 @@
-import { Box, TextField, Autocomplete, IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { useMemo, type Dispatch, type SetStateAction } from "react";
 import PageNumberInput from "../PageNumberInput";
 import SortButton from "../SortButton";
@@ -6,6 +6,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { SortingValues } from "../Table";
 import type { Tag } from "../../api/useTags";
+import FilterButton from "../FilterButton";
 
 type TableControlsProps = {
   tags: Tag[] | null;
@@ -47,18 +48,12 @@ const TableControls = ({
   );
   return (
     <Box display={"flex"} flexDirection={"row"} paddingTop={"0.3rem"}>
-      {!tags || isLoading ? (
-        <TextField disabled label="Filter" />
-      ) : (
-        <Autocomplete
-          disabled={isDisabled}
-          disablePortal
-          options={tags.map((tag) => tag.name)}
-          sx={{ width: "15vw" }}
-          renderInput={(params) => <TextField {...params} label="Filter" />}
-          onChange={(_, newValue) => setSelectedTag(newValue)}
-        />
-      )}
+      <FilterButton
+        tags={tags}
+        isLoading={isLoading}
+        isDisabled={isDisabled}
+        setSelectedTag={setSelectedTag}
+      />
       <SortButton
         disabled={isDisabled}
         selectedValue={selectedSorting}
