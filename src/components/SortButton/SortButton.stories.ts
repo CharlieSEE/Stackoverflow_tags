@@ -9,12 +9,6 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-} satisfies Meta<typeof SortButton>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Normal: Story = {
   args: {
     selectedValue: SortingValues.DESCENDING,
     setSelectedValue: () => null,
@@ -24,5 +18,16 @@ export const Normal: Story = {
     selectedValue: {
       options: [SortingValues.DESCENDING, SortingValues.ASCENDING],
     },
+  },
+} satisfies Meta<typeof SortButton>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Normal: Story = {};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
   },
 };

@@ -4,22 +4,27 @@ import PageNumberInput from ".";
 const meta = {
   title: "PageNumber",
   component: PageNumberInput,
+  tags: ["autodocs"],
   parameters: {
     layout: "centered",
   },
   argTypes: {
-    perPage: { control: { type: "number" } },
+    perPage: { control: { disable: true } },
   },
-  tags: ["autodocs"],
+  args: {
+    perPage: 25,
+    disabled: false,
+    setPerPage: () => null,
+  },
 } satisfies Meta<typeof PageNumberInput>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Normal: Story = {
+export const Normal: Story = {};
+
+export const Disabled: Story = {
   args: {
-    perPage: 11,
-    disabled: false,
-    setPerPage: () => null,
+    disabled: true,
   },
 };

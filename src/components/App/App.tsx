@@ -6,7 +6,7 @@ function App() {
     <Box
       display={"flex"}
       flexDirection={"column"}
-      justifyContent={"center"}
+      justifyContent={"flex-start"}
       padding={"5em"}
       paddingTop={"3em"}
       height={"85vh"}

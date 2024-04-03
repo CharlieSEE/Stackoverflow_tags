@@ -47,7 +47,12 @@ const TableControls = ({
     [hasMore, isDisabled, selectedTag]
   );
   return (
-    <Box display={"flex"} flexDirection={"row"} paddingTop={"0.3rem"}>
+    <Box
+      display={"flex"}
+      flexDirection={"row"}
+      flexWrap={"wrap"}
+      paddingTop={"0.3rem"}
+    >
       <FilterButton
         tags={tags}
         isLoading={isLoading}
@@ -71,7 +76,14 @@ const TableControls = ({
           perPage={perPage}
           disabled={isDisabled}
         />
-        <Box sx={{ marginLeft: "auto" }}>
+        <Box
+          sx={{
+            marginLeft: "auto",
+            display: "flex",
+            flexWrap: "nowrap",
+            alignItems: "center",
+          }}
+        >
           <IconButton
             disabled={leftArrowDisabled}
             onClick={() =>

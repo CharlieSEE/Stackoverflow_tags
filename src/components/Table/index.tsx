@@ -1,4 +1,4 @@
-import { TableContainer, Paper, CircularProgress } from "@mui/material";
+import { TableContainer, Paper, CircularProgress, Box } from "@mui/material";
 import { useMemo, useState } from "react";
 import useTags from "../../api/useTags";
 import type { Tag } from "../../api/useTags";
@@ -56,7 +56,13 @@ const Table = () => {
         setPageCount={setPageCount}
         hasMore={hasMore}
       />
-      {isLoading ? <CircularProgress /> : <TableContent rows={rows} />}
+      {isLoading ? (
+        <Box display={"flex"} justifyContent={"center"}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <TableContent rows={rows} />
+      )}
     </TableContainer>
   );
 };

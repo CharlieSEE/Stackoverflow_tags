@@ -3,4 +3,4 @@
 - [x] table
 - [x] pagination
 - [x] loading, error states
-- [ ] storybook
+- [x] storybook

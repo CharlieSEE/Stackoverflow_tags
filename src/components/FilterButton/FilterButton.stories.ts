@@ -8,12 +8,6 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-} satisfies Meta<typeof FilterButton>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Normal: Story = {
   args: {
     tags: [
       { name: "tag1", count: 1 },
@@ -23,5 +17,22 @@ export const Normal: Story = {
     isLoading: false,
     isDisabled: false,
     setSelectedTag: () => null,
+  },
+} satisfies Meta<typeof FilterButton>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Normal: Story = {};
+
+export const WhileLoading: Story = {
+  args: {
+    isLoading: true,
+  },
+};
+
+export const WhileNoData: Story = {
+  args: {
+    isDisabled: true,
   },
 };
